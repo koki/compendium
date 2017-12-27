@@ -1,0 +1,3 @@
+# Node Affinity rule for scheduling a Pod in availability zone us-west-1a.
+affinity:
+- node: failure-domain.beta.k8s.io/zone=us-west-1a

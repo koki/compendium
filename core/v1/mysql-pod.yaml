@@ -1,0 +1,29 @@
+# Single-instance MySQL database from the Kubernetes docs, parameterized with affinity.
+params:
+- affinity: the Pod's affinities (for affinity-based scheduling)
+pod:
+  affinity: ${affinity}
+  containers:
+  - args:
+    - --ignore-db-dir
+    - lost+found
+    cpu:
+      max: 500m
+    env:
+    - MYSQL_ROOT_PASSWORD=yourpassword
+    expose:
+    - mysql: 3306
+    image: mysql
+    name: mysql
+    volume:
+    - mount: /var/lib/mysql
+      store: mysql-persistent-storage
+  labels:
+    name: mysql
+  name: mysql
+  version: v1
+  volumes:
+    mysql-persistent-storage:
+      fs: ext4
+      vol_id: bd82f7e2-wece-4c01-a505-4acf60b07f4a
+      vol_type: cinder
