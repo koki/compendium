@@ -1,0 +1,27 @@
+# A MySQL Pod that runs in us-east-1a.
+imports:
+- affinity: ./node-us-east-1a.yaml
+- pod: ./mysql-pod.yaml
+  params:
+    affinity: ${affinity}
+pod: ${pod}
+
+---
+
+# A MySQL Pod that runs in us-west-1a.
+imports:
+- affinity: ./node-us-west-1a.yaml
+- pod: ./mysql-pod.yaml
+  params:
+    affinity: ${affinity}
+pod: ${pod}
+
+---
+
+# A MySQL Pod that runs in ap-southeast-1a.
+imports:
+- affinity: ./node-ap-southeast-1a.yaml
+- pod: ./mysql-pod.yaml
+  params:
+    affinity: ${affinity}
+pod: ${pod}
