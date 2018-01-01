@@ -1,0 +1,6 @@
+config_map:
+  data: 
+    db_name=colors_db
+    table_name=purple
+  name: config_data
+  version: v1

@@ -1,0 +1,20 @@
+pod:
+  labels:
+    app: nginx
+  name: nginx
+  namespace: default
+  version: v1
+  containers:
+  - name: nginx
+    image: nginx
+    volume:
+    - mount: /config
+      store: config-volume
+  volumes:
+    cofig-volume:
+      vol_type: projected
+      sources:
+      - config: config_data
+        items:
+          /config_data/db_name: db_name:0644
+          /config_data/table: table:0644

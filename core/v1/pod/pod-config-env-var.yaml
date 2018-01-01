@@ -1,0 +1,12 @@
+pod:
+  labels:
+    app: nginx
+  name: nginx
+  namespace: default
+  version: v1
+  containers:
+  - name: nginx
+    image: nginx
+    env:
+    - key: NGINX_DB_NAME
+      from: config:config_data:db_name
