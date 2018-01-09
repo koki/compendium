@@ -1,0 +1,12 @@
+deployment:
+  containers:
+  - image: gcr.io/google_containers/busybox:1.24
+    name: reader
+    volume:
+    - mount: /usr/test-pod
+      store: local-vol
+      propagation: bidirectional
+  name: local-test-reader
+  version: extensions/v1beta1
+  volumes:
+    local-vol: pvc:example-local-claim

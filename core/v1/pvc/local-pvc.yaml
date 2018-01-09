@@ -1,0 +1,7 @@
+pvc:
+  access_modes:
+  - rw_once
+  name: example-local-claim
+  storage: 5Gi
+  storage_class: local-storage
+  version: v1

@@ -1,0 +1,9 @@
+persistent_volume:  
+  modes: rw-once
+  name: example-local-pv
+  path: /mnt/disks/ssd1             # Local dir to bind-mount
+  reclaim: delete
+  storage: 5Gi
+  storage_class: local-storage
+  version: v1
+  vol_type: local
