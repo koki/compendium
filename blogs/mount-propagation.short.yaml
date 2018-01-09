@@ -1,0 +1,30 @@
+deployment:
+  containers:
+  - image: gcr.io/google_containers/busybox:1.24
+    name: reader
+    volume:
+    - mount: /usr/test-pod
+      store: local-vol
+      propagation: bidirectional
+  name: local-test-reader
+  version: extensions/v1beta1
+  volumes:
+    local-vol: pvc:example-local-claim
+---
+persistent_volume:  
+  modes: rw-once
+  name: example-local-pv
+  path: /mnt/disks/ssd1             # Local dir to bind-mount
+  reclaim: delete
+  storage: 5Gi
+  storage_class: local-storage
+  version: v1
+  vol_type: local
+---
+pvc:
+  access_modes:
+  - rw_once
+  name: example-local-claim
+  storage: 5Gi
+  storage_class: local-storage
+  version: v1

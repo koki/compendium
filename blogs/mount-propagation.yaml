@@ -1,0 +1,56 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: local-test-reader
+spec:
+  selector:
+    matchLabels:
+      koki.io/selector.name: local-test-reader
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        koki.io/selector.name: local-test-reader
+    spec:
+      containers:
+      - image: gcr.io/google_containers/busybox:1.24
+        name: reader
+        volumeMounts:
+        - mountPath: /usr/test-pod
+          mountPropagation: Bidirectional
+          name: local-vol
+      volumes:
+      - name: local-vol
+        persistentVolumeClaim:
+          claimName: example-local-claim
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: example-local-pv
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  local:
+    path: /mnt/disks/ssd1
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: example-local-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      koki.io/selector.name: example-local-claim
+  storageClassName: local-storage
+
